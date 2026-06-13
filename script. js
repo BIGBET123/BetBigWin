@@ -1,1 +1,144 @@
+// Sample script.js structure
+// This file should contain all your JavaScript functions
 
+// Page Navigation
+function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show selected page
+    const selectedPage = document.getElementById(pageId + '-page');
+    if (selectedPage) {
+        selectedPage.classList.add('active');
+    }
+}
+
+// Dashboard Navigation
+function navigateTo(section) {
+    // Hide all page content
+    document.querySelectorAll('.page-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Show selected section
+    const selectedContent = document.getElementById(section + '-content');
+    if (selectedContent) {
+        selectedContent.classList.add('active');
+    }
+    
+    // Update nav buttons
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    if (section === 'dashboard') {
+        document.getElementById('nav-home').classList.add('active');
+    } else {
+        document.getElementById('nav-' + section).classList.add('active');
+    }
+}
+
+// Authentication Functions
+function handleLogin() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    if (email && password) {
+        // Store user data (you can use localStorage or connect to a backend)
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_name', email.split('@')[0]);
+        
+        // Show dashboard
+        showPage('dashboard');
+        document.getElementById('user-name-welcome').textContent = email.split('@')[0];
+    } else {
+        alert('Please fill in all fields');
+    }
+}
+
+function handleRegister() {
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const phone = document.getElementById('register-phone').value;
+    const password = document.getElementById('register-password').value;
+    const confirm = document.getElementById('register-confirm').value;
+    
+    if (name && email && phone && password && confirm) {
+        if (password !== confirm) {
+            alert('Passwords do not match');
+            return;
+        }
+        
+        // Store user data
+        localStorage.setItem('user_name', name);
+        localStorage.setItem('user_email', email);
+        localStorage.setItem('user_phone', phone);
+        
+        // Show dashboard
+        showPage('dashboard');
+        document.getElementById('user-name-welcome').textContent = name;
+    } else {
+        alert('Please fill in all fields');
+    }
+}
+
+function handleLogout() {
+    localStorage.clear();
+    showPage('auth');
+}
+
+// Predictions Functions
+function filterPredictions(category) {
+    // Update active filter tab
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Load predictions based on category
+    console.log('Filtering predictions by:', category);
+}
+
+// Payment Functions
+function selectAmount(amount) {
+    document.getElementById('custom-amount').value = amount;
+    updatePaymentSummary(amount);
+}
+
+function updatePaymentSummary(amount) {
+    const fee = amount * 0.01; // 1% fee example
+    const total = parseFloat(amount) + parseFloat(fee);
+    
+    document.getElementById('summary-amount').textContent = 'GH₵ ' + parseFloat(amount).toFixed(2);
+    document.getElementById('summary-fee').textContent = 'GH₵ ' + fee.toFixed(2);
+    document.getElementById('summary-total').textContent = 'GH₵ ' + total.toFixed(2);
+}
+
+function proceedToPayment() {
+    const amount = document.getElementById('custom-amount').value;
+    
+    if (!amount) {
+        alert('Please enter an amount');
+        return;
+    }
+    
+    // Here you would integrate with Paystack
+    alert('Processing payment of GH₵' + amount);
+}
+
+// Notifications
+function toggleNotifications() {
+    alert('You have 3 new notifications');
+}
+
+// Initialize app on page load
+window.addEventListener('DOMContentLoaded', function() {
+    // Load saved user data if exists
+    const savedUser = localStorage.getItem('user_name');
+    if (savedUser) {
+        showPage('dashboard');
+        document.getElementById('user-name-welcome').textContent = savedUser;
+    }
+});
