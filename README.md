@@ -231,3 +231,137 @@ function add(){
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prediction Hub FIXED</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0b1020;
+    color:white;
+}
+
+.header{
+    text-align:center;
+    padding:18px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-around;
+    background:#111a2d;
+    padding:12px;
+}
+
+.nav div{
+    cursor:pointer;
+    color:#aaa;
+    font-weight:bold;
+}
+
+.active{color:#00ff88}
+
+.container{
+    width:92%;
+    max-width:500px;
+    margin:auto;
+    padding-bottom:80px;
+}
+
+.card{
+    background:rgba(255,255,255,0.06);
+    padding:15px;
+    margin:10px 0;
+    border-radius:15px;
+}
+
+.tag{color:#00ff88}
+
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<div class="header">⚽ Prediction Hub</div>
+
+<div class="nav">
+    <div onclick="show('home', this)" class="active">Home</div>
+    <div onclick="show('free', this)">Free</div>
+    <div onclick="show('vip', this)">VIP</div>
+    <div onclick="show('results', this)">Results</div>
+</div>
+
+<div class="container">
+
+<!-- HOME -->
+<div id="home">
+    <div class="card">
+        <h3>Welcome 👋</h3>
+        <p>Site is working correctly now.</p>
+    </div>
+</div>
+
+<!-- FREE -->
+<div id="free" class="hidden">
+    <div class="card">
+        <h3>Dock Sud vs Real Pilar</h3>
+        <div class="tag">1 - 1</div>
+    </div>
+
+    <div class="card">
+        <h3>Merlo vs Liniers</h3>
+        <div class="tag">2 - 0</div>
+    </div>
+</div>
+
+<!-- VIP -->
+<div id="vip" class="hidden">
+    <div class="card">
+        <h3>VIP Match 1</h3>
+        <div class="tag">🔒 Locked</div>
+    </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="hidden">
+    <div class="card">
+        <h3>Yesterday</h3>
+        <div class="tag">All correct ✔</div>
+    </div>
+</div>
+
+</div>
+
+<script>
+
+/* SAFE NAVIGATION */
+function show(page, el){
+
+    document.querySelectorAll(".container > div").forEach(d=>{
+        d.classList.add("hidden");
+    });
+
+    document.getElementById(page).classList.remove("hidden");
+
+    document.querySelectorAll(".nav div").forEach(n=>{
+        n.classList.remove("active");
+    });
+
+    el.classList.add("active");
+}
+
+/* SHOW HOME BY DEFAULT */
+document.getElementById("home").classList.remove("hidden");
+
+</script>
+
+</body>
+</html>
