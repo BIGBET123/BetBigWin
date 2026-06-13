@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScoreX VIP</title>
+<title>ScoreX Football Predictions</title>
 
 <style>
 body{
@@ -13,18 +13,22 @@ body{
     color:white;
 }
 
+/* HEADER */
 .header{
     text-align:center;
-    padding:15px;
+    padding:18px;
     font-size:22px;
     font-weight:bold;
 }
 
+/* NAV */
 .nav{
     display:flex;
     justify-content:space-around;
     background:#111a2d;
     padding:12px;
+    position:sticky;
+    top:0;
 }
 
 .nav div{
@@ -37,6 +41,7 @@ body{
     color:#00ff88;
 }
 
+/* CONTENT */
 .container{
     width:92%;
     max-width:500px;
@@ -52,6 +57,33 @@ body{
     border:1px solid rgba(255,255,255,0.1);
 }
 
+.tag{
+    color:#00ff88;
+    font-size:13px;
+}
+
+.lock{
+    color:#ffcc00;
+}
+
+/* TRUST BOX */
+.trust{
+    background:#111a2d;
+    padding:15px;
+    border-radius:15px;
+    margin:10px 0;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    background:#27ae60;
+    border-radius:6px;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* BUTTON (fake VIP unlock placeholder) */
 .btn{
     width:100%;
     padding:12px;
@@ -60,76 +92,92 @@ body{
     border-radius:10px;
     color:white;
     font-weight:bold;
-    cursor:pointer;
 }
-
 .hidden{display:none}
-
-.tag{
-    color:#00ff88;
-    font-size:13px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="header">ScoreX VIP SYSTEM 🔥</div>
+<div class="header">⚽ ScoreX Football Predictions</div>
 
 <!-- NAV -->
 <div class="nav">
-    <div onclick="showTab('home')" class="active" id="nav-home">Home</div>
-    <div onclick="showTab('free')" id="nav-free">Free Games</div>
-    <div onclick="showTab('vip')" id="nav-vip">VIP Premium</div>
+    <div onclick="show('home')" class="active" id="n1">Home</div>
+    <div onclick="show('free')" id="n2">Free Games</div>
+    <div onclick="show('vip')" id="n3">VIP Premium</div>
+    <div onclick="show('history')" id="n4">Results</div>
 </div>
 
 <div class="container">
 
 <!-- HOME -->
 <div id="home">
+
     <div class="card">
-        <h3>Welcome 👋</h3>
-        <p>This is ScoreX VIP system for correct score predictions.</p>
-        <p class="tag">🔥 Daily updated games</p>
+        <h3>🔥 Welcome to ScoreX</h3>
+        <p>Daily football correct score predictions.</p>
+        <div class="tag">✔ Trusted System • Updated Daily</div>
     </div>
+
+    <div class="trust">
+        <h3>📊 Why users trust us</h3>
+        <div class="badge">80%+ accuracy claims</div><br>
+        <div class="badge">Daily updates</div><br>
+        <div class="badge">VIP insider tips</div>
+    </div>
+
 </div>
 
-<!-- FREE GAMES (ONLY 2) -->
+<!-- FREE -->
 <div id="free" class="hidden">
 
     <div class="card">
-        <h3>FREE GAME 1</h3>
+        <h3>Free Game 1</h3>
         <p>Dock Sud vs Real Pilar</p>
-        <p class="tag">Prediction: 1 - 1</p>
+        <div class="tag">Prediction: 1 - 1</div>
     </div>
 
     <div class="card">
-        <h3>FREE GAME 2</h3>
+        <h3>Free Game 2</h3>
         <p>Merlo vs Liniers</p>
-        <p class="tag">Prediction: 2 - 0</p>
+        <div class="tag">Prediction: 2 - 0</div>
     </div>
 
 </div>
 
-<!-- VIP PREMIUM -->
+<!-- VIP -->
 <div id="vip" class="hidden">
 
     <div class="card">
-        <h3>VIP GAME 1</h3>
+        <h3>VIP Game 1</h3>
         <p>Team A vs Team B</p>
-        <p class="tag">🔒 Locked Prediction</p>
+        <div class="lock">🔒 Locked Prediction</div>
     </div>
 
     <div class="card">
-        <h3>VIP GAME 2</h3>
+        <h3>VIP Game 2</h3>
         <p>Team C vs Team D</p>
-        <p class="tag">🔒 Locked Prediction</p>
+        <div class="lock">🔒 Unlock with VIP access</div>
+    </div>
+
+    <button class="btn">Unlock VIP (Paystack later)</button>
+
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="hidden">
+
+    <div class="card">
+        <h3>Yesterday Result</h3>
+        <p>Team X vs Team Y</p>
+        <div class="tag">Result: 2 - 1 ✔ WON</div>
     </div>
 
     <div class="card">
-        <h3>VIP GAME 3</h3>
-        <p>Team E vs Team F</p>
-        <p class="tag">🔒 Locked Prediction</p>
+        <h3>Yesterday Result</h3>
+        <p>Team A vs Team B</p>
+        <div class="tag">Result: 1 - 1 ✔ WON</div>
     </div>
 
 </div>
@@ -138,20 +186,21 @@ body{
 
 <script>
 
-/* ================= TAB SYSTEM ================= */
-function showTab(tab){
+function show(tab){
 
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("free").classList.add("hidden");
-    document.getElementById("vip").classList.add("hidden");
+    let pages = ["home","free","vip","history"];
+
+    pages.forEach(p=>{
+        document.getElementById(p).classList.add("hidden");
+    });
 
     document.getElementById(tab).classList.remove("hidden");
 
-    document.getElementById("nav-home").classList.remove("active");
-    document.getElementById("nav-free").classList.remove("active");
-    document.getElementById("nav-vip").classList.remove("active");
+    document.querySelectorAll(".nav div").forEach(x=>{
+        x.classList.remove("active");
+    });
 
-    document.getElementById("nav-"+tab).classList.add("active");
+    event.target.classList.add("active");
 }
 
 </script>
