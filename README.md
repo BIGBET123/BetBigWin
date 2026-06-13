@@ -116,19 +116,19 @@ body{
 
     <div class="card">
         <h3>VIP GAME 1</h3>
-        <p>Team A vs Team B</p>
+        <p>Boysu SP vs Addo FC</p>
         <p class="tag">🔒 Locked Prediction</p>
     </div>
 
     <div class="card">
         <h3>VIP GAME 2</h3>
-        <p>Team C vs Team D</p>
+        <p>Ghana Boysvs Alfredf GC</p>
         <p class="tag">🔒 Locked Prediction</p>
     </div>
 
     <div class="card">
         <h3>VIP GAME 3</h3>
-        <p>Team E vs Team F</p>
+        <p>Paya Ghvs Ghana FC</p>
         <p class="tag">🔒 Locked Prediction</p>
     </div>
 
