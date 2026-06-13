@@ -1,160 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScoreX VIP</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0b1020;
-    color:white;
-}
-
-.header{
-    text-align:center;
-    padding:15px;
-    font-size:22px;
-    font-weight:bold;
-}
-
-.nav{
-    display:flex;
-    justify-content:space-around;
-    background:#111a2d;
-    padding:12px;
-}
-
-.nav div{
-    cursor:pointer;
-    color:#aaa;
-    font-weight:bold;
-}
-
-.active{
-    color:#00ff88;
-}
-
-.container{
-    width:92%;
-    max-width:500px;
-    margin:auto;
-    padding-bottom:80px;
-}
-
-.card{
-    background:rgba(255,255,255,0.06);
-    padding:15px;
-    margin:10px 0;
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,0.1);
-}
-
-.btn{
-    width:100%;
-    padding:12px;
-    background:#27ae60;
-    border:none;
-    border-radius:10px;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.hidden{display:none}
-
-.tag{
-    color:#00ff88;
-    font-size:13px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetBigWin VIP - Football Predictions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-<div class="header">ScoreX VIP SYSTEM 🔥</div>
+<div class="app-wrapper">
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-with-icon-small">
+                    <div class="trophy-icon-small">🏆</div>
+                    <h1 class="app-title">BetBigWin VIP</h1>
+                </div>
+            </div>
+        </header>
 
-<!-- NAV -->
-<div class="nav">
-    <div onclick="showTab('home')" class="active" id="nav-home">Home</div>
-    <div onclick="showTab('free')" id="nav-free">Free Games</div>
-    <div onclick="showTab('vip')" id="nav-vip">VIP Premium</div>
+        <div class="page-container">
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <h2>Welcome to BetBigWin VIP 👋</h2>
+                    <p>Get accurate football predictions, match analysis, and expert betting insights.</p>
+                </div>
+            </div>
+
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <span class="stat-value">500+</span>
+                            <span class="stat-label">Predictions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <span class="stat-value">85%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <span class="stat-value">10K+</span>
+                            <span class="stat-label">Users</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <h3 class="section-title">Our Features</h3>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-star"></i>
+                        <h4>Free Predictions</h4>
+                        <p>Access daily free game predictions</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-crown"></i>
+                        <h4>VIP Unlock</h4>
+                        <p>Premium correct score tips</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-sync"></i>
+                        <h4>Daily Updates</h4>
+                        <p>Live scores and results</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Results Page -->
+    <div id="results-page" class="page">
+        <header class="page-header">
+            <button onclick="navigateTo('home')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Results</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="page-container">
+            <section class="results-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-circle"></i>
+                        Latest Results
+                    </h3>
+                </div>
+
+                <div id="results-container" class="results-list"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Free Games Page -->
+    <div id="free-games-page" class="page">
+        <header class="page-header">
+            <button onclick="navigateTo('home')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Free Games</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="page-container">
+            <section class="games-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-gamepad"></i>
+                        Free Predictions
+                    </h3>
+                    <span class="badge">Updated Daily</span>
+                </div>
+
+                <div id="free-games-container" class="predictions-grid"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- VIP Unlock Page -->
+    <div id="vip-unlock-page" class="page">
+        <header class="page-header">
+            <button onclick="navigateTo('home')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>VIP Unlock</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="page-container">
+            <section class="vip-section">
+                <div class="vip-banner">
+                    <i class="fas fa-crown"></i>
+                    <h2>Premium Predictions</h2>
+                    <p>Unlock exclusive correct score tips and advanced match analysis</p>
+                </div>
+
+                <div class="section-header">
+                    <h3 class="section-title">VIP Correct Score Tips</h3>
+                </div>
+
+                <div id="vip-container" class="vip-grid"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Daily Updates Page -->
+    <div id="daily-updates-page" class="page">
+        <header class="page-header">
+            <button onclick="navigateTo('home')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Daily Updates</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="page-container">
+            <section class="daily-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Today's Games & Results
+                    </h3>
+                </div>
+
+                <div id="daily-container" class="daily-grid"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button onclick="navigateTo('home')" class="nav-item active" id="nav-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button onclick="navigateTo('results')" class="nav-item" id="nav-results">
+            <i class="fas fa-check-circle"></i>
+            <span>Results</span>
+        </button>
+        <button onclick="navigateTo('free-games')" class="nav-item" id="nav-free-games">
+            <i class="fas fa-star"></i>
+            <span>Free Games</span>
+        </button>
+        <button onclick="navigateTo('vip-unlock')" class="nav-item" id="nav-vip-unlock">
+            <i class="fas fa-crown"></i>
+            <span>VIP</span>
+        </button>
+        <button onclick="navigateTo('daily-updates')" class="nav-item" id="nav-daily-updates">
+            <i class="fas fa-fire"></i>
+            <span>Updates</span>
+        </button>
+    </nav>
 </div>
 
-<div class="container">
+<!-- Toast Notification -->
+<div id="toast-notification" class="toast-notification"></div>
 
-<!-- HOME -->
-<div id="home">
-    <div class="card">
-        <h3>Welcome 👋</h3>
-        <p>This is ScoreX VIP system for correct score predictions.</p>
-        <p class="tag">🔥 Daily updated games</p>
-    </div>
-</div>
+<script src="script.js"></script>
 
-<!-- FREE GAMES (ONLY 2) -->
-<div id="free" class="hidden">
-
-    <div class="card">
-        <h3>FREE GAME 1</h3>
-        <p>Dock Sud vs Real Pilar</p>
-        <p class="tag">Prediction: 1 - 1</p>
-    </div>
-
-    <div class="card">
-        <h3>FREE GAME 2</h3>
-        <p>Merlo vs Liniers</p>
-        <p class="tag">Prediction: 2 - 0</p>
-    </div>
-
-</div>
-
-<!-- VIP PREMIUM -->
-<div id="vip" class="hidden">
-
-    <div class="card">
-        <h3>VIP GAME 1</h3>
-        <p>Boysu SP vs Addo FC</p>
-        <p class="tag">🔒 Locked Prediction</p>
-    </div>
-
-    <div class="card">
-        <h3>VIP GAME 2</h3>
-        <p>Ghana Boysvs Alfredf GC</p>
-        <p class="tag">🔒 Locked Prediction</p>
-    </div>
-
-    <div class="card">
-        <h3>VIP GAME 3</h3>
-        <p>Paya Ghvs Ghana FC</p>
-        <p class="tag">🔒 Locked Prediction</p>
-    </div>
-
-</div>
-
-</div>
-
-<script>
-
-/* ================= TAB SYSTEM ================= */
-function showTab(tab){
-
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("free").classList.add("hidden");
-    document.getElementById("vip").classList.add("hidden");
-
-    document.getElementById(tab).classList.remove("hidden");
-
-    document.getElementById("nav-home").classList.remove("active");
-    document.getElementById("nav-free").classList.remove("active");
-    document.getElementById("nav-vip").classList.remove("active");
-
-    document.getElementById("nav-"+tab).classList.add("active");
-}
-
-</script><div onclick="alert('Working!')" id="nav-free">Free Games</div>
-
-</body><div onclick="alert('Working!')" id="nav-free">Free Games</div>
-</html><div onclick="alert('Working!')" id="nav-free">Free Games</div>
+</body>
+</html>
