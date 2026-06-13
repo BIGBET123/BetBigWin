@@ -3,205 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScoreX VIP PRO FIXED</title>
+<title>VIP SCOREX BUSINESS</title>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0b1020;
-    color:white;
-}
-
-.header{
-    text-align:center;
-    padding:20px;
-    font-size:22px;
-    font-weight:bold;
-}
-
-.container{
-    width:92%;
-    max-width:500px;
-    margin:auto;
-}
-
-.card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.1);
-    padding:15px;
-    margin:10px 0;
-    border-radius:15px;
-}
-
-.btn{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#27ae60;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.lock{
-    text-align:center;
-    color:#aaa;
-    margin-top:10px;
-}
-
-input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border-radius:8px;
-    border:none;
-}
-
-.adminBox{
-    background:#111a2d;
-    padding:15px;
-    border-radius:15px;
-    margin-top:20px;
-}
-
+body{margin:0;font-family:Arial;background:#0b1020;color:white}
+.container{width:92%;max-width:500px;margin:auto}
+.card{background:#121a2c;padding:15px;margin:10px;border-radius:15px}
+.btn{width:100%;padding:12px;background:#27ae60;border:none;color:white;border-radius:10px}
+input{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none}
 .hidden{display:none}
+.admin{background:#111a2d;padding:15px;border-radius:15px}
 </style>
 </head>
 
 <body>
 
-<div class="header">ScoreX VIP PRO 🔥</div>
-
 <div class="container">
 
-<div id="games"></div>
+<h2 style="text-align:center">VIP BUSINESS SYSTEM</h2>
 
-<div class="adminBox hidden" id="adminBox">
-    <h3>ADMIN PANEL</h3>
+<!-- LOGIN -->
+<div id="loginBox">
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+    <button class="btn" onclick="login()">Login</button>
+</div>
 
-    <input id="home" placeholder="Home">
-    <input id="away" placeholder="Away">
-    <input id="league" placeholder="League">
-    <input id="score" placeholder="Score">
-    <input id="price" placeholder="Price (GHS)">
+<!-- APP -->
+<div id="app" class="hidden">
 
-    <button class="btn" onclick="addMatch()">Add Match</button>
+    <div id="matches"></div>
+
+    <!-- ADMIN -->
+    <div id="adminPanel" class="admin hidden">
+        <h3>ADMIN PANEL</h3>
+
+        <input id="home" placeholder="Home">
+        <input id="away" placeholder="Away">
+        <input id="league" placeholder="League">
+        <input id="score" placeholder="Score">
+        <input id="price" placeholder="Price">
+
+        <button class="btn" onclick="addMatch()">Add Match</button>
+    </div>
+
 </div>
 
 </div>
 
 <script>
 
-/* ================= PAYSTACK ================= */
-const PAYSTACK_KEY = "pk_live_YOUR_KEY_HERE";
+/* ================= FIREBASE ================= */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID"
+};
 
-/* ================= DATA ================= */
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* ================= STATE ================= */
 let matches = [];
 let unlocked = {};
 
-/* ================= LOAD STORAGE ================= */
-if(localStorage.getItem("matches")){
-    matches = JSON.parse(localStorage.getItem("matches"));
+/* ================= LOGIN ================= */
+function login(){
+    let e = email.value;
+    let p = password.value;
+
+    auth.signInWithEmailAndPassword(e,p)
+    .catch(()=>auth.createUserWithEmailAndPassword(e,p));
 }
 
-if(localStorage.getItem("unlocked")){
-    unlocked = JSON.parse(localStorage.getItem("unlocked"));
+/* ================= AUTH ================= */
+auth.onAuthStateChanged(user=>{
+    if(user){
+        loginBox.classList.add("hidden");
+        app.classList.remove("hidden");
+
+        if(user.email === "admin@vip.com"){
+            adminPanel.classList.remove("hidden");
+        }
+
+        loadMatches();
+    }
+});
+
+/* ================= LOAD MATCHES ================= */
+function loadMatches(){
+    db.collection("matches").onSnapshot(snap=>{
+        matches = [];
+        snap.forEach(d=>{
+            matches.push({...d.data(), id:d.id});
+        });
+        render();
+    });
 }
 
 /* ================= RENDER ================= */
 function render(){
 
-    let html = "";
+    matchesDiv = document.getElementById("matches");
 
-    for(let i=0;i<matches.length;i++){
+    matchesDiv.innerHTML = matches.map(m=>`
 
-        let m = matches[i];
+    <div class="card">
+        <h3>${m.home} vs ${m.away}</h3>
+        <p>${m.league}</p>
+        <p>Price: ${m.price} GHS</p>
+        <p>Score: ${m.score}</p>
+    </div>
 
-        html += `
-        <div class="card">
-            <div><b>${m.league}</b></div>
-            <h3>${m.home} vs ${m.away}</h3>
-            <div>Price: ${m.price} GHS</div>
-
-            ${
-                unlocked[i]
-                ? `<h3 style="color:#00ff88">Score: ${m.score}</h3>`
-                : `<div class="lock">🔒 Locked</div>
-                   <button class="btn" onclick="pay(${i})">Unlock</button>`
-            }
-
-        </div>
-        `;
-    }
-
-    document.getElementById("games").innerHTML = html;
-}
-
-/* ================= PAYSTACK ================= */
-function pay(index){
-
-    let amount = matches[index].price * 100;
-
-    let handler = PaystackPop.setup({
-        key: PAYSTACK_KEY,
-        email: "user@gmail.com",
-        amount: amount,
-        currency: "GHS",
-
-        callback: function(){
-            unlocked[index] = true;
-            localStorage.setItem("unlocked", JSON.stringify(unlocked));
-            alert("Unlocked!");
-            render();
-        }
-    });
-
-    handler.openIframe();
-}
-
-/* ================= ADMIN PASSWORD ================= */
-function openAdmin(){
-    let pass = prompt("Enter admin password:");
-    if(pass === "admin123"){
-        document.getElementById("adminBox").classList.remove("hidden");
-    } else {
-        alert("Wrong password");
-    }
+    `).join("");
 }
 
 /* ================= ADD MATCH ================= */
 function addMatch(){
 
-    let newMatch = {
+    db.collection("matches").add({
         home: home.value,
         away: away.value,
         league: league.value,
         score: score.value,
         price: price.value
-    };
+    });
 
-    matches.push(newMatch);
-
-    localStorage.setItem("matches", JSON.stringify(matches));
-
-    alert("Match added!");
-
-    render();
+    alert("Match added");
 }
-
-/* ================= INIT ================= */
-render();
-
-/* make admin accessible */
-document.addEventListener("keydown", function(e){
-    if(e.key === "A"){
-        openAdmin();
-    }
-});
 
 </script>
 
