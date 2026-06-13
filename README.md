@@ -156,5 +156,5 @@ function showTab(tab){
 
 </script><div onclick="alert('Working!')" id="nav-free">Free Games</div>
 
-</body>
-</html>
+</body><div onclick="alert('Working!')" id="nav-free">Free Games</div>
+</html><div onclick="alert('Working!')" id="nav-free">Free Games</div>
