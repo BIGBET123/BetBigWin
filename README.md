@@ -1,57 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VIP SCOREX BUSINESS</title>
-
-<script src="https://js.paystack.co/v1/inline.js"></script>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<title>ScoreX VIP</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#0b1020;color:white}
-.container{width:92%;max-width:500px;margin:auto}
-.card{background:#121a2c;padding:15px;margin:10px;border-radius:15px}
-.btn{width:100%;padding:12px;background:#27ae60;border:none;color:white;border-radius:10px}
-input{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none}
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0b1020;
+    color:white;
+}
+
+.header{
+    text-align:center;
+    padding:15px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-around;
+    background:#111a2d;
+    padding:12px;
+}
+
+.nav div{
+    cursor:pointer;
+    color:#aaa;
+    font-weight:bold;
+}
+
+.active{
+    color:#00ff88;
+}
+
+.container{
+    width:92%;
+    max-width:500px;
+    margin:auto;
+    padding-bottom:80px;
+}
+
+.card{
+    background:rgba(255,255,255,0.06);
+    padding:15px;
+    margin:10px 0;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    background:#27ae60;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
 .hidden{display:none}
-.admin{background:#111a2d;padding:15px;border-radius:15px}
+
+.tag{
+    color:#00ff88;
+    font-size:13px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="header">ScoreX VIP SYSTEM 🔥</div>
 
-<h2 style="text-align:center">VIP BUSINESS SYSTEM</h2>
-
-<!-- LOGIN -->
-<div id="loginBox">
-    <input id="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
-    <button class="btn" onclick="login()">Login</button>
+<!-- NAV -->
+<div class="nav">
+    <div onclick="showTab('home')" class="active" id="nav-home">Home</div>
+    <div onclick="showTab('free')" id="nav-free">Free Games</div>
+    <div onclick="showTab('vip')" id="nav-vip">VIP Premium</div>
 </div>
 
-<!-- APP -->
-<div id="app" class="hidden">
+<div class="container">
 
-    <div id="matches"></div>
+<!-- HOME -->
+<div id="home">
+    <div class="card">
+        <h3>Welcome 👋</h3>
+        <p>This is ScoreX VIP system for correct score predictions.</p>
+        <p class="tag">🔥 Daily updated games</p>
+    </div>
+</div>
 
-    <!-- ADMIN -->
-    <div id="adminPanel" class="admin hidden">
-        <h3>ADMIN PANEL</h3>
+<!-- FREE GAMES (ONLY 2) -->
+<div id="free" class="hidden">
 
-        <input id="home" placeholder="Home">
-        <input id="away" placeholder="Away">
-        <input id="league" placeholder="League">
-        <input id="score" placeholder="Score">
-        <input id="price" placeholder="Price">
+    <div class="card">
+        <h3>FREE GAME 1</h3>
+        <p>Dock Sud vs Real Pilar</p>
+        <p class="tag">Prediction: 1 - 1</p>
+    </div>
 
-        <button class="btn" onclick="addMatch()">Add Match</button>
+    <div class="card">
+        <h3>FREE GAME 2</h3>
+        <p>Merlo vs Liniers</p>
+        <p class="tag">Prediction: 2 - 0</p>
+    </div>
+
+</div>
+
+<!-- VIP PREMIUM -->
+<div id="vip" class="hidden">
+
+    <div class="card">
+        <h3>VIP GAME 1</h3>
+        <p>Team A vs Team B</p>
+        <p class="tag">🔒 Locked Prediction</p>
+    </div>
+
+    <div class="card">
+        <h3>VIP GAME 2</h3>
+        <p>Team C vs Team D</p>
+        <p class="tag">🔒 Locked Prediction</p>
+    </div>
+
+    <div class="card">
+        <h3>VIP GAME 3</h3>
+        <p>Team E vs Team F</p>
+        <p class="tag">🔒 Locked Prediction</p>
     </div>
 
 </div>
@@ -60,85 +138,20 @@ input{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none}
 
 <script>
 
-/* ================= FIREBASE ================= */
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID"
-};
+/* ================= TAB SYSTEM ================= */
+function showTab(tab){
 
-firebase.initializeApp(firebaseConfig);
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("free").classList.add("hidden");
+    document.getElementById("vip").classList.add("hidden");
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+    document.getElementById(tab).classList.remove("hidden");
 
-/* ================= STATE ================= */
-let matches = [];
-let unlocked = {};
+    document.getElementById("nav-home").classList.remove("active");
+    document.getElementById("nav-free").classList.remove("active");
+    document.getElementById("nav-vip").classList.remove("active");
 
-/* ================= LOGIN ================= */
-function login(){
-    let e = email.value;
-    let p = password.value;
-
-    auth.signInWithEmailAndPassword(e,p)
-    .catch(()=>auth.createUserWithEmailAndPassword(e,p));
-}
-
-/* ================= AUTH ================= */
-auth.onAuthStateChanged(user=>{
-    if(user){
-        loginBox.classList.add("hidden");
-        app.classList.remove("hidden");
-
-        if(user.email === "admin@vip.com"){
-            adminPanel.classList.remove("hidden");
-        }
-
-        loadMatches();
-    }
-});
-
-/* ================= LOAD MATCHES ================= */
-function loadMatches(){
-    db.collection("matches").onSnapshot(snap=>{
-        matches = [];
-        snap.forEach(d=>{
-            matches.push({...d.data(), id:d.id});
-        });
-        render();
-    });
-}
-
-/* ================= RENDER ================= */
-function render(){
-
-    matchesDiv = document.getElementById("matches");
-
-    matchesDiv.innerHTML = matches.map(m=>`
-
-    <div class="card">
-        <h3>${m.home} vs ${m.away}</h3>
-        <p>${m.league}</p>
-        <p>Price: ${m.price} GHS</p>
-        <p>Score: ${m.score}</p>
-    </div>
-
-    `).join("");
-}
-
-/* ================= ADD MATCH ================= */
-function addMatch(){
-
-    db.collection("matches").add({
-        home: home.value,
-        away: away.value,
-        league: league.value,
-        score: score.value,
-        price: price.value
-    });
-
-    alert("Match added");
+    document.getElementById("nav-"+tab).classList.add("active");
 }
 
 </script>
