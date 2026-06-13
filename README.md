@@ -154,7 +154,7 @@ function showTab(tab){
     document.getElementById("nav-"+tab).classList.add("active");
 }
 
-</script>
+</script><div onclick="alert('Working!')" id="nav-free">Free Games</div>
 
 </body>
 </html>
