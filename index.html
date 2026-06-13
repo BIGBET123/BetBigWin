@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetBigWin VIP - Premium Football Predictions</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- Login/Auth Page -->
+    <div id="auth-page" class="page active">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="logo-with-icon">
+                    <div class="trophy-icon">🏆</div>
+                    <div>
+                        <h1 class="brand-name">BetBigWin VIP</h1>
+                        <p class="brand-tagline">Premium Football Predictions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-form">
+                <h2>Welcome Back</h2>
+                <p class="form-subtitle">Sign in to access exclusive predictions</p>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="your@email.com" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" class="form-input">
+                </div>
+
+                <button onclick="handleLogin()" class="btn-primary full-width">Sign In</button>
+
+                <div class="auth-divider">OR</div>
+
+                <button onclick="showPage('register')" class="btn-secondary full-width">Create New Account</button>
+
+                <div class="auth-footer">
+                    <p>By signing in, you agree to our <a href="#terms">Terms & Conditions</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="register-page" class="page">
+        <div class="auth-container">
+            <button onclick="showPage('auth')" class="btn-back"><i class="fas fa-arrow-left"></i> Back</button>
+
+            <div class="auth-header">
+                <div class="logo-with-icon">
+                    <div class="trophy-icon">🏆</div>
+                    <div>
+                        <h1 class="brand-name">BetBigWin VIP</h1>
+                        <p class="brand-tagline">Premium Football Predictions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-form">
+                <h2>Create Your Account</h2>
+                <p class="form-subtitle">Join thousands of winning predictors</p>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="register-name" placeholder="John Doe" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="register-email" placeholder="your@email.com" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="register-phone" placeholder="+233 50 123 4567" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="register-password" placeholder="••••••••" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="register-confirm" placeholder="••••••••" class="form-input">
+                </div>
+
+                <button onclick="handleRegister()" class="btn-primary full-width">Create Account</button>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" onclick="showPage('auth')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard-page" class="page">
+        <!-- Header with Logo -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-with-icon-small">
+                    <div class="trophy-icon-small">🏆</div>
+                    <h1 class="app-title">BetBigWin VIP</h1>
+                </div>
+                <div class="header-actions">
+                    <button onclick="toggleNotifications()" class="icon-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button onclick="showPage('profile')" class="icon-btn user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-card">
+                <h2>Welcome back, <span id="user-name-welcome">User</span>! 👋</h2>
+                <p>Get daily football predictions, match analysis, and premium betting insights from our expert analysts.</p>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="total-predictions">156</span>
+                        <span class="stat-label">Total Predictions</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="winning-predictions">142</span>
+                        <span class="stat-label">Winning Predictions</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <span class="stat-value" id="success-rate">91%</span>
+                        <span class="stat-label">Success Rate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home Page Content -->
+        <div id="home-content" class="page-content active">
+            <section class="predictions-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Today's Premium Predictions
+                    </h3>
+                    <span class="prediction-count">2 Available</span>
+                </div>
+
+                <div id="today-container" class="predictions-grid"></div>
+            </section>
+        </div>
+
+        <!-- Predictions Page Content -->
+        <div id="predictions-content" class="page-content">
+            <section class="predictions-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-list"></i>
+                        All Premium Predictions
+                    </h3>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterPredictions('all')">All</button>
+                    <button class="filter-tab" onclick="filterPredictions('today')">Today</button>
+                    <button class="filter-tab" onclick="filterPredictions('tomorrow')">Tomorrow</button>
+                    <button class="filter-tab" onclick="filterPredictions('week')">This Week</button>
+                </div>
+
+                <div id="predictions-container" class="predictions-grid"></div>
+            </section>
+        </div>
+
+        <!-- History Page Content -->
+        <div id="history-content" class="page-content">
+            <section class="history-section">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Prediction History
+                    </h3>
+                </div>
+
+                <div id="history-container" class="history-list"></div>
+            </section>
+        </div>
+
+        <!-- Wallet Page Content -->
+        <div id="wallet-content" class="page-content">
+            <section class="wallet-section">
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <h3>Account Balance</h3>
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="wallet-balance">
+                        <span class="balance-amount" id="account-balance">GH₵ 2,450.00</span>
+                        <span class="balance-label">Available</span>
+                    </div>
+                    <div class="wallet-actions">
+                        <button onclick="showPage('payment')" class="btn-primary">
+                            <i class="fas fa-plus"></i> Add Funds
+                        </button>
+                        <button onclick="showPage('withdraw')" class="btn-secondary">
+                            <i class="fas fa-arrow-up"></i> Withdraw
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-top: 30px;">
+                    <h3 class="section-title">Recent Transactions</h3>
+                </div>
+
+                <div id="transactions-container" class="transactions-list"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile-page" class="page">
+        <header class="page-header">
+            <button onclick="showPage('dashboard')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>My Profile</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="profile-content">
+            <div class="profile-avatar-section">
+                <div class="profile-avatar">👤</div>
+                <h2 id="profile-name">John Doe</h2>
+                <p id="profile-email">john@example.com</p>
+            </div>
+
+            <section class="profile-section">
+                <h3 class="profile-section-title">Account Information</h3>
+                <div class="profile-item">
+                    <span class="profile-label">Full Name</span>
+                    <span class="profile-value" id="profile-fullname">John Doe</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Email</span>
+                    <span class="profile-value" id="profile-email-display">john@example.com</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Phone</span>
+                    <span class="profile-value" id="profile-phone">+233 50 123 4567</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Member Since</span>
+                    <span class="profile-value">January 2025</span>
+                </div>
+            </section>
+
+            <section class="profile-section">
+                <h3 class="profile-section-title">Account Statistics</h3>
+                <div class="profile-item">
+                    <span class="profile-label">Purchased Tips</span>
+                    <span class="profile-value">142</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Successful Predictions</span>
+                    <span class="profile-value">128</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Total Spent</span>
+                    <span class="profile-value">GH₵ 14,200</span>
+                </div>
+            </section>
+
+            <section class="profile-section">
+                <h3 class="profile-section-title">Settings</h3>
+                <button onclick="alert('Coming soon')" class="settings-item">
+                    <span>
+                        <i class="fas fa-lock"></i>
+                        Change Password
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button onclick="alert('Coming soon')" class="settings-item">
+                    <span>
+                        <i class="fas fa-bell"></i>
+                        Notifications
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button onclick="alert('Coming soon')" class="settings-item">
+                    <span>
+                        <i class="fas fa-shield-alt"></i>
+                        Privacy & Security
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </section>
+
+            <section class="profile-section">
+                <h3 class="profile-section-title">Support</h3>
+                <button onclick="alert('Coming soon')" class="settings-item">
+                    <span>
+                        <i class="fas fa-question-circle"></i>
+                        Help Center
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button onclick="alert('Coming soon')" class="settings-item">
+                    <span>
+                        <i class="fas fa-headset"></i>
+                        Contact Support
+                    </span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </section>
+
+            <div class="profile-footer">
+                <button onclick="handleLogout()" class="btn-danger full-width">Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Page -->
+    <div id="payment-page" class="page">
+        <header class="page-header">
+            <button onclick="showPage('dashboard')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Add Funds</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="payment-content">
+            <div class="payment-info-card">
+                <h3>Quick Top-Up</h3>
+                <p>Select an amount and proceed to payment</p>
+            </div>
+
+            <div class="preset-amounts">
+                <button class="amount-btn" onclick="selectAmount('100')">GH₵ 100</button>
+                <button class="amount-btn" onclick="selectAmount('500')">GH₵ 500</button>
+                <button class="amount-btn" onclick="selectAmount('1000')">GH₵ 1,000</button>
+                <button class="amount-btn" onclick="selectAmount('5000')">GH₵ 5,000</button>
+            </div>
+
+            <div class="custom-amount">
+                <label>Custom Amount (GH₵)</label>
+                <input type="number" id="custom-amount" placeholder="Enter amount" class="form-input">
+            </div>
+
+            <div class="payment-summary">
+                <div class="summary-item">
+                    <span>Amount</span>
+                    <span id="summary-amount">GH₵ 0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Fee</span>
+                    <span id="summary-fee">GH₵ 0.00</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total</span>
+                    <span id="summary-total">GH₵ 0.00</span>
+                </div>
+            </div>
+
+            <button onclick="proceedToPayment()" class="btn-primary full-width">Proceed to Payment</button>
+
+            <div class="payment-methods">
+                <h4>Payment Methods</h4>
+                <div class="method-icon"><i class="fab fa-cc-paypal"></i> Paystack</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Page -->
+    <div id="withdraw-page" class="page">
+        <header class="page-header">
+            <button onclick="showPage('dashboard')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Withdraw Funds</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="withdraw-content">
+            <div class="withdraw-info">
+                <h3>Available Balance</h3>
+                <p class="balance-highlight">GH₵ 2,450.00</p>
+            </div>
+
+            <form class="withdraw-form">
+                <div class="form-group">
+                    <label>Bank Account</label>
+                    <select class="form-input">
+                        <option>Select your bank account</option>
+                        <option>Absa Bank - ••••4521</option>
+                        <option>Zenith Bank - ••••7890</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Withdrawal Amount (GH₵)</label>
+                    <input type="number" placeholder="Enter amount" class="form-input" max="2450">
+                </div>
+
+                <div class="withdrawal-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Withdrawal processed within 24-48 hours. Minimum withdrawal is GH₵ 100.</p>
+                </div>
+
+                <button type="button" onclick="alert('Withdrawal request submitted. Check your email for confirmation.')" class="btn-primary full-width">Request Withdrawal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Page -->
+    <div id="terms-page" class="page">
+        <header class="page-header">
+            <button onclick="showPage('auth')" class="btn-back"><i class="fas fa-arrow-left"></i></button>
+            <h1>Terms & Conditions</h1>
+            <div style="width: 40px;"></div>
+        </header>
+
+        <div class="terms-content">
+            <section class="terms-section">
+                <h3>1. About BetBigWin VIP</h3>
+                <p>BetBigWin VIP provides football match predictions and betting insights for entertainment purposes.</p>
+            </section>
+
+            <section class="terms-section">
+                <h3>2. User Responsibilities</h3>
+                <p>Users must be 18+ to use our platform. Users are responsible for maintaining account security and confidentiality of login credentials.</p>
+            </section>
+
+            <section class="terms-section">
+                <h3>3. Predictions Disclaimer</h3>
+                <p>All predictions are based on analysis but are not guaranteed. Users engage at their own risk and discretion.</p>
+            </section>
+
+            <section class="terms-section">
+                <h3>4. Payment Terms</h3>
+                <p>All payments are processed through Paystack. Refunds are subject to our refund policy.</p>
+            </section>
+
+            <section class="terms-section">
+                <h3>5. Privacy Policy</h3>
+                <p>We protect your personal information and comply with data protection regulations.</p>
+            </section>
+
+            <div class="terms-accept">
+                <button onclick="showPage('auth')" class="btn-primary full-width">I Accept & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button onclick="navigateTo('dashboard')" class="nav-item active" id="nav-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button onclick="navigateTo('predictions')" class="nav-item" id="nav-predictions">
+            <i class="fas fa-list"></i>
+            <span>Predictions</span>
+        </button>
+        <button onclick="navigateTo('history')" class="nav-item" id="nav-history">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </button>
+        <button onclick="navigateTo('wallet')" class="nav-item" id="nav-wallet">
+            <i class="fas fa-wallet"></i>
+            <span>Wallet</span>
+        </button>
+        <button onclick="navigateTo('profile')" class="nav-item" id="nav-profile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </button>
+    </nav>
+</div>
+
+<!-- Loading Spinner -->
+<div id="loading-spinner" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast-notification" class="toast-notification"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
