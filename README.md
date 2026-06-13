@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ScoreX Football Predictions</title>
+<title>Daily Prediction Hub</title>
 
 <style>
 body{
@@ -13,7 +13,6 @@ body{
     color:white;
 }
 
-/* HEADER */
 .header{
     text-align:center;
     padding:18px;
@@ -21,7 +20,6 @@ body{
     font-weight:bold;
 }
 
-/* NAV */
 .nav{
     display:flex;
     justify-content:space-around;
@@ -37,11 +35,8 @@ body{
     font-weight:bold;
 }
 
-.active{
-    color:#00ff88;
-}
+.active{color:#00ff88}
 
-/* CONTENT */
 .container{
     width:92%;
     max-width:500px;
@@ -57,33 +52,17 @@ body{
     border:1px solid rgba(255,255,255,0.1);
 }
 
-.tag{
-    color:#00ff88;
-    font-size:13px;
+.tag{color:#00ff88;font-size:13px}
+.lock{color:#ffcc00}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border:none;
+    border-radius:8px;
 }
 
-.lock{
-    color:#ffcc00;
-}
-
-/* TRUST BOX */
-.trust{
-    background:#111a2d;
-    padding:15px;
-    border-radius:15px;
-    margin:10px 0;
-}
-
-.badge{
-    display:inline-block;
-    padding:5px 10px;
-    background:#27ae60;
-    border-radius:6px;
-    font-size:12px;
-    margin-top:5px;
-}
-
-/* BUTTON (fake VIP unlock placeholder) */
 .btn{
     width:100%;
     padding:12px;
@@ -92,58 +71,60 @@ body{
     border-radius:10px;
     color:white;
     font-weight:bold;
+    cursor:pointer;
 }
+
 .hidden{display:none}
+
+/* simple highlight */
+.small{
+    font-size:13px;
+    color:#aaa;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">⚽ ScoreX Football Predictions</div>
+<div class="header">⚽ Daily Prediction Hub</div>
 
 <!-- NAV -->
 <div class="nav">
     <div onclick="show('home')" class="active" id="n1">Home</div>
     <div onclick="show('free')" id="n2">Free Games</div>
-    <div onclick="show('vip')" id="n3">VIP Premium</div>
-    <div onclick="show('history')" id="n4">Results</div>
+    <div onclick="show('vip')" id="n3">VIP</div>
+    <div onclick="show('results')" id="n4">Results</div>
 </div>
 
 <div class="container">
 
 <!-- HOME -->
 <div id="home">
+    <div class="card">
+        <h3>Welcome 👋</h3>
+        <p>Daily football correct score predictions platform.</p>
+        <p class="tag">✔ Updated every day • Trusted system</p>
+    </div>
 
     <div class="card">
-        <h3>🔥 Welcome to ScoreX</h3>
-        <p>Daily football correct score predictions.</p>
-        <div class="tag">✔ Trusted System • Updated Daily</div>
+        <h3>Why users trust us</h3>
+        <p class="small">✔ Daily free games</p>
+        <p class="small">✔ VIP premium predictions</p>
+        <p class="small">✔ Verified past results</p>
     </div>
-
-    <div class="trust">
-        <h3>📊 Why users trust us</h3>
-        <div class="badge">80%+ accuracy claims</div><br>
-        <div class="badge">Daily updates</div><br>
-        <div class="badge">VIP insider tips</div>
-    </div>
-
 </div>
 
-<!-- FREE -->
+<!-- FREE (ONLY 2 GAMES) -->
 <div id="free" class="hidden">
-
     <div class="card">
-        <h3>Free Game 1</h3>
-        <p>Dock Sud vs Real Pilar</p>
+        <h3>Dock Sud vs Real Pilar</h3>
         <div class="tag">Prediction: 1 - 1</div>
     </div>
 
     <div class="card">
-        <h3>Free Game 2</h3>
-        <p>Merlo vs Liniers</p>
+        <h3>Merlo vs Liniers</h3>
         <div class="tag">Prediction: 2 - 0</div>
     </div>
-
 </div>
 
 <!-- VIP -->
@@ -151,56 +132,99 @@ body{
 
     <div class="card">
         <h3>VIP Game 1</h3>
-        <p>Team A vs Team B</p>
         <div class="lock">🔒 Locked Prediction</div>
     </div>
 
     <div class="card">
         <h3>VIP Game 2</h3>
-        <p>Team C vs Team D</p>
-        <div class="lock">🔒 Unlock with VIP access</div>
+        <div class="lock">🔒 Locked Prediction</div>
     </div>
 
-    <button class="btn">Unlock VIP (Paystack later)</button>
+    <div class="card">
+        <h3>VIP Game 3</h3>
+        <div class="lock">🔒 Locked Prediction</div>
+    </div>
 
+    <button class="btn">Unlock VIP (Add Paystack later)</button>
 </div>
 
-<!-- HISTORY -->
-<div id="history" class="hidden">
+<!-- RESULTS -->
+<div id="results" class="hidden">
 
     <div class="card">
         <h3>Yesterday Result</h3>
-        <p>Team X vs Team Y</p>
-        <div class="tag">Result: 2 - 1 ✔ WON</div>
-    </div>
-
-    <div class="card">
-        <h3>Yesterday Result</h3>
-        <p>Team A vs Team B</p>
+        <p>Dock Sud vs Real Pilar</p>
         <div class="tag">Result: 1 - 1 ✔ WON</div>
     </div>
 
+    <div class="card">
+        <h3>Yesterday Result</h3>
+        <p>Merlo vs Liniers</p>
+        <div class="tag">Result: 2 - 0 ✔ WON</div>
+    </div>
+
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="card hidden">
+    <h3>ADMIN PANEL</h3>
+
+    <input id="section" placeholder="free / vip / results">
+    <input id="title" placeholder="Match title">
+    <input id="desc" placeholder="Prediction or result">
+
+    <button class="btn" onclick="add()">Add Content</button>
 </div>
 
 </div>
 
 <script>
 
-function show(tab){
+/* NAV SYSTEM */
+function show(page){
 
-    let pages = ["home","free","vip","history"];
-
-    pages.forEach(p=>{
+    ["home","free","vip","results"].forEach(p=>{
         document.getElementById(p).classList.add("hidden");
     });
 
-    document.getElementById(tab).classList.remove("hidden");
+    document.getElementById(page).classList.remove("hidden");
 
     document.querySelectorAll(".nav div").forEach(x=>{
         x.classList.remove("active");
     });
 
     event.target.classList.add("active");
+}
+
+/* ADMIN OPEN */
+document.addEventListener("keydown",e=>{
+    if(e.key.toLowerCase()==="a"){
+        document.getElementById("admin").classList.toggle("hidden");
+    }
+});
+
+/* SIMPLE ADD (LOCAL ONLY) */
+function add(){
+
+    let sec = document.getElementById("section").value;
+    let title = document.getElementById("title").value;
+    let desc = document.getElementById("desc").value;
+
+    let box = document.getElementById(sec);
+
+    if(!box){
+        alert("Invalid section!");
+        return;
+    }
+
+    box.innerHTML += `
+        <div class="card">
+            <h3>${title}</h3>
+            <div class="tag">${desc}</div>
+        </div>
+    `;
+
+    alert("Added!");
 }
 
 </script>
